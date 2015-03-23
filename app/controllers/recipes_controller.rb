@@ -26,9 +26,16 @@ class RecipesController < ApplicationController
   end
 
   def update
+    if @recipe.update(recipe_params)
+      redirect_to @recipe
+    else
+      render 'edit'
+    end
   end
 
   def destroy
+    @recipe.destroy
+    redirect_to root_path, notice: "successfully deleted recipe"
   end
 
   private
@@ -38,7 +45,7 @@ class RecipesController < ApplicationController
   end
 
   def find_recipe
-    @recipe = Recipe.find(params:[id])
+    @recipe = Recipe.find(params[:id])
   end
 
 end
